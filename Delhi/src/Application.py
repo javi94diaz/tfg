@@ -39,8 +39,8 @@ class SolveFrame(ttk.Frame):    #MANAGER GRID
         self.help_label = ttk.Label(self)
         self.help_label.grid(row = 2, column = 1)
         
-       # self.solution = ttk.Label(self, text = "Label 2")
-       # self.solution.pack()
+        # self.solution = ttk.Label(self, text = "Label 2")
+        # self.solution.pack()
         
     def show_help(self):
         if (self.help_label["text"] == ""):
