@@ -11,7 +11,6 @@ if __name__ == '__main__':
     
     print("This is a change to test GIT commits")
     print("Second comment")
-    print("Hola que tal")
     root = tk.Tk()
     app = Application.Application(root)
     app.mainloop()
