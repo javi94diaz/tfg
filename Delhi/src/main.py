@@ -7,24 +7,35 @@ Created on 5 mar. 2020
 from tkinter import *
 from tkinter import ttk
 import Application
+from sympy import *
+import sympy as sp
+
+def show_welcome():
+    solver.grid_remove()
+    stepbystep.grid_remove()
+    testbench.grid_remove()
+    welcome.grid(column=0, row=0, sticky = "nsew")
 
 def show_solver():
     welcome.grid_remove()
     stepbystep.grid_remove()
+    testbench.grid_remove()
     solver.grid(column=0, row=0, sticky = "nsew")
-    
-def show_practice():
-    solver.grid_remove()
-    stepbystep.grid_remove()
-    welcome.grid(column=0, row=0, sticky = "nsew")
     
 def show_stepbystep():
     solver.grid_remove()
     welcome.grid_remove()
+    testbench.grid_remove()
     stepbystep.grid(column=0, row=0, sticky = "nsew")
-        
+    
+def show_testbench():
+    solver.grid_remove()
+    welcome.grid_remove()
+    stepbystep.grid_remove()
+    testbench.grid(column=0, row=0, sticky = "nsew")
+    
 if __name__ == '__main__':
-        
+    
     root = Tk()
     root.title("DELHI Solver")
 #     app = Application.Application(root)
@@ -34,6 +45,7 @@ if __name__ == '__main__':
     s.configure('solver.TFrame', background="dodgerblue")
     s.configure('welcome.TFrame', background="orange")
     s.configure('stepbystep.TFrame', background="lightgreen")
+    s.configure('testbench.TFrame', background="salmon")
     
     content = ttk.Frame(root)
     lateral = ttk.Frame(content, relief ="sunken", width=100, height=400, style="lateral.TFrame")
@@ -41,7 +53,11 @@ if __name__ == '__main__':
     workarea = ttk.Frame(content, relief ="sunken", width=500, height=300)
     solver = ttk.Frame(workarea, width=500, height=300, style="solver.TFrame")
     welcome = ttk.Frame(workarea, width=500, height=300, style="welcome.TFrame")
-    stepbystep = ttk.Frame(workarea,width=500, height=300, style="stepbystep.TFrame")
+    stepbystep = ttk.Frame(workarea, width=500, height=300, style="stepbystep.TFrame")
+    testbench = ttk.Frame(workarea, width=500, height=300, style="testbench.TFrame")
+    
+    cover =  PhotoImage (file = "images/cover.png")
+    coverlbl = ttk.Label(welcome, image=cover).pack()
     
     cmdhistory = ttk.Label(solver, text= "Here is shown your command history", padding = 10)
     cmdentry = ttk.Entry (solver, text= "Type here...")
@@ -62,12 +78,14 @@ if __name__ == '__main__':
     etsiilbl.pack(side = TOP, expand = False)
     workoptions = ttk.Frame(lateral, relief = "sunken", width=80, height = 200)
     workoptions.pack(side = TOP, expand = True, fill = BOTH)
-    welcomebtn = ttk.Button(workoptions, text = " Welcome ", command = show_practice)
+    welcomebtn = ttk.Button(workoptions, text = " Welcome ", command = show_welcome)
     solverbtn = ttk.Button(workoptions, text = " Solver ", command = show_solver)
     stepsbtn = ttk.Button(workoptions, text = " Step-by-step ", command = show_stepbystep)
+    testbenchbtn = ttk.Button(workoptions, text = "Testbench", command = show_testbench)
     welcomebtn.pack(side = TOP, expand = True, fill = BOTH)
     solverbtn.pack(side = TOP, expand = True, fill = BOTH)
     stepsbtn.pack(side = TOP, expand = True, fill = BOTH)
+    testbenchbtn.pack(side = TOP, expand = True, fill = BOTH)
     
     cuaderno = ttk.Notebook(notebook, width = 300, height = 50)
     page1 = ttk.Frame(cuaderno)
@@ -113,6 +131,6 @@ if __name__ == '__main__':
     notebook.grid_columnconfigure(1, weight=1)
     workarea.grid_columnconfigure(0, weight=1)
     workarea.grid_rowconfigure(0, weight=1)
-    show_solver()
+    show_welcome()
     
     root.mainloop()
