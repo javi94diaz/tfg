@@ -9,18 +9,18 @@ from tkinter import ttk
 import Application
 
 def show_solver():
-    practice.grid_remove()
+    welcome.grid_remove()
     stepbystep.grid_remove()
     solver.grid(column=0, row=0, sticky = "nsew")
     
 def show_practice():
     solver.grid_remove()
     stepbystep.grid_remove()
-    practice.grid(column=0, row=0, sticky = "nsew")
+    welcome.grid(column=0, row=0, sticky = "nsew")
     
 def show_stepbystep():
     solver.grid_remove()
-    practice.grid_remove()
+    welcome.grid_remove()
     stepbystep.grid(column=0, row=0, sticky = "nsew")
         
 if __name__ == '__main__':
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     s = ttk.Style()
     s.configure('lateral.TFrame', background='lightblue')
     s.configure('solver.TFrame', background="dodgerblue")
-    s.configure('practice.TFrame', background="orange")
+    s.configure('welcome.TFrame', background="orange")
     s.configure('stepbystep.TFrame', background="lightgreen")
     
     content = ttk.Frame(root)
@@ -40,19 +40,33 @@ if __name__ == '__main__':
     notebook = ttk.Frame(content, relief ="sunken", width=500, height=100)
     workarea = ttk.Frame(content, relief ="sunken", width=500, height=300)
     solver = ttk.Frame(workarea, width=500, height=300, style="solver.TFrame")
-    practice = ttk.Frame(workarea, width=500, height=300, style="practice.TFrame")
+    welcome = ttk.Frame(workarea, width=500, height=300, style="welcome.TFrame")
     stepbystep = ttk.Frame(workarea,width=500, height=300, style="stepbystep.TFrame")
+    
+    cmdhistory = ttk.Label(solver, text= "Here is shown your command history", padding = 10)
+    cmdentry = ttk.Entry (solver, text= "Type here...")
+    plotter = ttk.Notebook(solver, width = 200, height = 250, padding = 10)
+    equationplot = ttk.Frame(plotter)
+    solutionplot= ttk.Frame(plotter)
+    plotter.add(equationplot, text = "Equation", padding = 5)
+    plotter.add(solutionplot, text  = "Solution", padding =  5)
+    solutionlbl = ttk.Label(solver, text = "Solution expression in LaTex")
+    
+    cmdhistory.grid(column=0, row=0, sticky="nsew")
+    cmdentry.grid(column=0, row=1, sticky="nsew")
+    plotter.grid(column=1, row=0, sticky="nsew")
+    solutionlbl.grid(column=1, row=1, sticky="nsew")
     
     etsiiupmicon = PhotoImage (file = "images/etsii.png")
     etsiilbl = ttk.Label(lateral, image = etsiiupmicon)
     etsiilbl.pack(side = TOP, expand = False)
     workoptions = ttk.Frame(lateral, relief = "sunken", width=80, height = 200)
     workoptions.pack(side = TOP, expand = True, fill = BOTH)
+    welcomebtn = ttk.Button(workoptions, text = " Welcome ", command = show_practice)
     solverbtn = ttk.Button(workoptions, text = " Solver ", command = show_solver)
-    practicebtn = ttk.Button(workoptions, text = " Practice ", command = show_practice)
     stepsbtn = ttk.Button(workoptions, text = " Step-by-step ", command = show_stepbystep)
+    welcomebtn.pack(side = TOP, expand = True, fill = BOTH)
     solverbtn.pack(side = TOP, expand = True, fill = BOTH)
-    practicebtn.pack(side = TOP, expand = True, fill = BOTH)
     stepsbtn.pack(side = TOP, expand = True, fill = BOTH)
     
     cuaderno = ttk.Notebook(notebook, width = 300, height = 50)
@@ -99,5 +113,6 @@ if __name__ == '__main__':
     notebook.grid_columnconfigure(1, weight=1)
     workarea.grid_columnconfigure(0, weight=1)
     workarea.grid_rowconfigure(0, weight=1)
+    show_solver()
     
     root.mainloop()
